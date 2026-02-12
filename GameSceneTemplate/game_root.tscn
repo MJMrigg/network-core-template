@@ -6,13 +6,13 @@
 
 [node name="GameRoot" type="Node" node_paths=PackedStringArray("MainNetworkCore")]
 script = ExtResource("1_j45rt")
-PublicIP = "192.168.140.206"
-PrivateIP = "192.168.140.206"
+PublicIP = "23.128.112.34"
+PrivateIP = "172.21.85.54"
 MainNetworkCore = NodePath("Level/MultiplayerSpawner")
 _portMaximum = 7010
 _portMinimum = 7000
 _localPort = 7000
-_serverAddress = "0.0.0.0"
+_serverAddress = "127.0.0.1"
 _maxConnections = 4
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
