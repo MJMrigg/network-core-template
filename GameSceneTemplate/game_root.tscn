@@ -6,13 +6,11 @@
 
 [node name="GameRoot" type="Node" node_paths=PackedStringArray("MainNetworkCore")]
 script = ExtResource("1_j45rt")
-PublicIP = "23.128.112.34"
-PrivateIP = "172.21.85.54"
 MainNetworkCore = NodePath("Level/MultiplayerSpawner")
 _portMaximum = 7010
 _portMinimum = 7000
 _localPort = 7000
-_serverAddress = "127.0.0.1"
+_serverAddress = "172.20.10.2"
 _maxConnections = 4
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -71,4 +69,4 @@ spawn_path = NodePath("..")
 script = ExtResource("2_knwgq")
 
 [connection signal="pressed" from="CanvasLayer/Host" to="." method="CreateLocalGame"]
-[connection signal="pressed" from="CanvasLayer/Join" to="." method="JOIN_WAN_CALLBACK"]
+[connection signal="pressed" from="CanvasLayer/Join" to="." method="JoinGame"]
