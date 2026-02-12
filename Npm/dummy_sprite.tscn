@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://can5tuechgj8o"]
+
+[ext_resource type="Script" uid="uid://b0pebnq3jtqei" path="res://Scripts/DumbSprite.cs" id="1_b4014"]
+[ext_resource type="Script" uid="uid://c4nb3pla4yjb4" path="res://NetworkCore/NetID.cs" id="1_yippa"]
+[ext_resource type="Texture2D" uid="uid://bbao060stc5d7" path="res://icon.svg" id="1_yralv"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_b4014"]
+properties/0/path = NodePath("MultiplayerSynchronizer:IsNetworkReady")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("MultiplayerSynchronizer:IsSynced")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("MultiplayerSynchronizer:OwnerId")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:myColor")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+
+[node name="DummySprite" type="Sprite2D" node_paths=PackedStringArray("myId")]
+texture = ExtResource("1_yralv")
+script = ExtResource("1_b4014")
+myId = NodePath("MultiplayerSynchronizer")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_b4014")
+script = ExtResource("1_yippa")

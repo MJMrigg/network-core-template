@@ -1,0 +1,107 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxxkl01sb1w56"]
+
+[ext_resource type="Script" uid="uid://c4nb3pla4yjb4" path="res://NetworkCore/NetID.cs" id="1_3f8db"]
+[ext_resource type="Script" uid="uid://cgeorthclbnq6" path="res://Scripts/UserImplement.cs" id="1_uihps"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3f8db"]
+properties/0/path = NodePath("ColorRect:color")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("TextEdit:text")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:PlayerName")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:Team")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:IsReady")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath("MultiplayerSynchronizer:IsNetworkReady")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("MultiplayerSynchronizer:IsSynced")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath("MultiplayerSynchronizer:OwnerId")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath(".:MyColor")
+properties/8/spawn = true
+properties/8/replication_mode = 2
+
+[node name="UserImplement" type="Control" node_paths=PackedStringArray("MyName", "MyBG", "MyCheck", "MyNetID", "MyList") groups=["NPMs"]]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 3
+anchor_right = 0.22200002
+anchor_bottom = 0.395
+offset_right = 0.25598145
+offset_bottom = 0.039993286
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uihps")
+MyName = NodePath("TextEdit")
+MyBG = NodePath("ColorRect")
+MyCheck = NodePath("CheckBox")
+MyNetID = NodePath("MultiplayerSynchronizer")
+MyList = NodePath("ItemList")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.49411765, 0, 1)
+
+[node name="TextEdit" type="TextEdit" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.14500001
+anchor_top = 0.172
+anchor_right = 0.89500004
+anchor_bottom = 0.316
+offset_left = -0.12000275
+offset_top = -0.032001495
+offset_right = -0.120010376
+offset_bottom = 0.10399628
+grow_horizontal = 2
+placeholder_text = "User Name"
+
+[node name="ItemList" type="ItemList" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.125
+anchor_top = 0.37500003
+anchor_right = 0.91400003
+anchor_bottom = 0.71900004
+offset_right = 0.015991211
+offset_bottom = -0.06401062
+item_count = 3
+item_0/text = "Red"
+item_1/text = "Blue"
+item_2/text = "Green"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_3f8db")
+script = ExtResource("1_3f8db")
+
+[node name="CheckBox" type="CheckBox" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.187
+anchor_top = 0.80500007
+anchor_right = 0.48400003
+anchor_bottom = 0.92600006
+offset_left = 0.12799835
+offset_top = -0.08001709
+offset_right = -51.904007
+offset_bottom = -7.056015
+text = "Ready"
+
+[connection signal="text_changed" from="TextEdit" to="." method="OnNameChange"]
+[connection signal="item_selected" from="ItemList" to="." method="OnTeamChange"]
+[connection signal="toggled" from="CheckBox" to="." method="OnIsReady"]
