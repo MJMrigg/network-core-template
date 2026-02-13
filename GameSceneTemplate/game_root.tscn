@@ -1,17 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8c6olsnh7ypq"]
+[gd_scene load_steps=6 format=3 uid="uid://c8c6olsnh7ypq"]
 
 [ext_resource type="Script" uid="uid://38u7hek4slsj" path="res://NetworkCore/GenericCore.cs" id="1_j45rt"]
 [ext_resource type="Script" uid="uid://d250mq1yr0dyg" path="res://NetworkCore/NetworkCore.cs" id="2_knwgq"]
 [ext_resource type="Script" uid="uid://pq8gmtc4kdr7" path="res://GameSceneTemplate/GameMaster.cs" id="3_43fbq"]
+[ext_resource type="Script" uid="uid://b7g7orn0cumea" path="res://Scripts/SetIp.cs" id="3_ma6ta"]
 [ext_resource type="PackedScene" uid="uid://c3gmtfoto816x" path="res://Npm/game_manager.tscn" id="4_43fbq"]
 
 [node name="GameRoot" type="Node" node_paths=PackedStringArray("MainNetworkCore")]
 script = ExtResource("1_j45rt")
 MainNetworkCore = NodePath("Level/MultiplayerSpawner")
-_portMaximum = 7000
-_portMinimum = 7010
+_portMaximum = 7010
+_portMinimum = 7000
 _localPort = 7000
-_serverAddress = "127.0.0.1"
+_serverAddress = "0.0.0.0"
 _maxConnections = 4
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -48,6 +49,23 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "HOST"
 
+[node name="SetIp" type="Button" parent="CanvasLayer" node_paths=PackedStringArray("IpAddress", "Port")]
+anchors_preset = -1
+anchor_left = 0.393
+anchor_top = 0.71800005
+anchor_right = 0.46
+anchor_bottom = 0.79
+offset_left = 0.26397705
+offset_top = -0.2640381
+offset_right = 0.08001709
+offset_bottom = 0.07998657
+grow_horizontal = 2
+grow_vertical = 2
+text = "SET"
+script = ExtResource("3_ma6ta")
+IpAddress = NodePath("../IpAddress")
+Port = NodePath("../Port")
+
 [node name="Join" type="Button" parent="CanvasLayer"]
 anchors_preset = -1
 anchor_left = 0.62600005
@@ -62,6 +80,30 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Client"
 
+[node name="IpAddress" type="LineEdit" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.321
+anchor_top = 0.5
+anchor_right = 0.574
+anchor_bottom = 0.563
+offset_left = 0.2079773
+offset_top = 1.0
+offset_right = -0.24798584
+offset_bottom = 0.17599487
+placeholder_text = "Ip Address"
+
+[node name="Port" type="LineEdit" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.321
+anchor_top = 0.59400004
+anchor_right = 0.574
+anchor_bottom = 0.656
+offset_left = 0.2079773
+offset_top = 0.08798218
+offset_right = -0.24798584
+offset_bottom = -0.088012695
+placeholder_text = "Port"
+
 [node name="Level" type="Node2D" parent="."]
 script = ExtResource("3_43fbq")
 
@@ -72,5 +114,9 @@ script = ExtResource("2_knwgq")
 
 [node name="GameManager" parent="Level" instance=ExtResource("4_43fbq")]
 
-[connection signal="pressed" from="CanvasLayer/Host" to="." method="CreateLocalGame"]
-[connection signal="pressed" from="CanvasLayer/Join" to="." method="JoinGame"]
+[connection signal="pressed" from="CanvasLayer/Host" to="CanvasLayer/SetIp" method="StartNewGame"]
+[connection signal="CreateGame" from="CanvasLayer/SetIp" to="." method="CreateLocalGame"]
+[connection signal="JoinGame" from="CanvasLayer/SetIp" to="." method="JoinGame"]
+[connection signal="pressed" from="CanvasLayer/SetIp" to="CanvasLayer/SetIp" method="SetIpConfig"]
+[connection signal="pressed" from="CanvasLayer/Join" to="CanvasLayer/SetIp" method="JoinNewGame"]
+[connection signal="text_changed" from="CanvasLayer/Port" to="CanvasLayer/SetIp" method="CheckPort"]

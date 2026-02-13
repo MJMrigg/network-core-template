@@ -3,8 +3,9 @@ using System;
 
 public partial class SetIp : Button
 {
-	[Export] public TextEdit IpAddress;
-	[Export] public TextEdit Port;
+	[Export] public LineEdit IpAddress;
+	[Export] public LineEdit Port;
+	public string PortText;
 	
 	[Signal] public delegate void JoinGameEventHandler();
 	[Signal] public delegate void CreateGameEventHandler();
@@ -19,14 +20,39 @@ public partial class SetIp : Button
 	{
 	}
 	
-	//Set the IP address of the local server
+	//Set the IP  and port address of the local server
 	public void SetIpConfig(){
 		if(IpAddress.Text != null && IpAddress.Text != ""){
 			//If it was provided by the user, set it to what they provided
 			GenericCore.Instance.SetIP(IpAddress.Text);
 		}else{
 			//If there was no input, just use local host
-			GenericCore.Instance.SetIP("127.0.0.1");
+			GenericCore.Instance.SetIP("localhost");
+		}
+		if(Port.Text != null && Port.Text != ""){
+			GenericCore.Instance.SetPort(Port.Text);
+		}else{
+			GenericCore.Instance.SetPort("7000");
+		}
+	}
+	
+	//Stop invalid ports from being inputted
+	public void CheckPort(string text){
+		try{
+			//Let the user delete their port
+			if(text == "" || text == null){
+				return;
+			}
+			//Try to convert it to a string
+			int.Parse(text);
+			//If it worked, accept it
+			PortText = text;
+		}catch{
+			//If it didn't work, put it back to its previous text
+			int CaretLocation = Port.CaretColumn;
+			Port.Text = PortText;
+			//Move the caret to the end of the text box
+			Port.CaretColumn = CaretLocation - 1;
 		}
 	}
 	
