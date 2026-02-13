@@ -30,6 +30,7 @@ public partial class UserImplement : Control
 			MyName.Editable = false;
 			MyList.Hide();
 		}
+		MyColor = MyBG.Color;
 	}
 	
 	public override void _Process(double delta){
@@ -85,7 +86,8 @@ public partial class UserImplement : Control
 	//Change the name of a client
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal=false, TransferMode=MultiplayerPeer.TransferModeEnum.Reliable)]
 	public void NameChangeRPC(string Text){
-		if(GenericCore.Instance.IsServer){
+		if(GenericCore.Instance.IsServer){ //Always protect your rpcs by IsServer
+			PlayerName = "";
 			PlayerName = Text;
 			MyName.Text = Text;
 		}

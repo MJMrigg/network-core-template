@@ -8,7 +8,7 @@ public partial class DumbSprite : Sprite2D
 	public override void _Ready(){
 		base._Ready();
 		//When the NetId is ready and has synchronized, do SlowStart
-		//myId.NetIDReady += SlowStart();
+		myId.NetIDReady += SlowStart;
 	}
 	public void SlowStart(){
 		this.Modulate = myColor;

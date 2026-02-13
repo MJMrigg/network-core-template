@@ -1,16 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8c6olsnh7ypq"]
+[gd_scene load_steps=5 format=3 uid="uid://c8c6olsnh7ypq"]
 
 [ext_resource type="Script" uid="uid://38u7hek4slsj" path="res://NetworkCore/GenericCore.cs" id="1_j45rt"]
 [ext_resource type="Script" uid="uid://d250mq1yr0dyg" path="res://NetworkCore/NetworkCore.cs" id="2_knwgq"]
 [ext_resource type="Script" uid="uid://pq8gmtc4kdr7" path="res://GameSceneTemplate/GameMaster.cs" id="3_43fbq"]
+[ext_resource type="PackedScene" uid="uid://c3gmtfoto816x" path="res://Npm/game_manager.tscn" id="4_43fbq"]
 
 [node name="GameRoot" type="Node" node_paths=PackedStringArray("MainNetworkCore")]
 script = ExtResource("1_j45rt")
 MainNetworkCore = NodePath("Level/MultiplayerSpawner")
-_portMaximum = 7010
-_portMinimum = 7000
+_portMaximum = 7000
+_portMinimum = 7010
 _localPort = 7000
-_serverAddress = "172.20.10.2"
+_serverAddress = "127.0.0.1"
 _maxConnections = 4
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -25,6 +26,7 @@ offset_bottom = 643.0
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+columns = 4
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="CanvasLayer/Control/GridContainer"]
 _spawnable_scenes = PackedStringArray("uid://dxxkl01sb1w56")
@@ -67,6 +69,8 @@ script = ExtResource("3_43fbq")
 _spawnable_scenes = PackedStringArray("uid://can5tuechgj8o")
 spawn_path = NodePath("..")
 script = ExtResource("2_knwgq")
+
+[node name="GameManager" parent="Level" instance=ExtResource("4_43fbq")]
 
 [connection signal="pressed" from="CanvasLayer/Host" to="." method="CreateLocalGame"]
 [connection signal="pressed" from="CanvasLayer/Join" to="." method="JoinGame"]

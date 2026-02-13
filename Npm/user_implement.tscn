@@ -18,7 +18,7 @@ properties/3/spawn = true
 properties/3/replication_mode = 2
 properties/4/path = NodePath(".:IsReady")
 properties/4/spawn = true
-properties/4/replication_mode = 2
+properties/4/replication_mode = 1
 properties/5/path = NodePath("MultiplayerSynchronizer:IsNetworkReady")
 properties/5/spawn = true
 properties/5/replication_mode = 1
@@ -31,6 +31,9 @@ properties/7/replication_mode = 1
 properties/8/path = NodePath(".:MyColor")
 properties/8/spawn = true
 properties/8/replication_mode = 2
+properties/9/path = NodePath(".:visible")
+properties/9/spawn = true
+properties/9/replication_mode = 2
 
 [node name="UserImplement" type="Control" node_paths=PackedStringArray("MyName", "MyBG", "MyCheck", "MyNetID", "MyList") groups=["NPMs"]]
 custom_minimum_size = Vector2(256, 256)
@@ -61,13 +64,13 @@ color = Color(1, 0.49411765, 0, 1)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.14500001
-anchor_top = 0.172
+anchor_top = 0.059000004
 anchor_right = 0.89500004
-anchor_bottom = 0.316
+anchor_bottom = 0.20300001
 offset_left = -0.12000275
-offset_top = -0.032001495
+offset_top = -0.104001045
 offset_right = -0.120010376
-offset_bottom = 0.10399628
+offset_bottom = 0.03199768
 grow_horizontal = 2
 placeholder_text = "User Name"
 
@@ -102,6 +105,19 @@ offset_right = -51.904007
 offset_bottom = -7.056015
 text = "Ready"
 
-[connection signal="text_changed" from="TextEdit" to="." method="OnNameChange"]
+[node name="SetName" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.33600003
+anchor_top = 0.238
+anchor_right = 0.66
+anchor_bottom = 0.35900003
+offset_left = -0.01600647
+offset_top = 0.071998596
+offset_right = 0.039993286
+offset_bottom = 0.09599304
+text = "Set Name"
+
 [connection signal="item_selected" from="ItemList" to="." method="OnTeamChange"]
 [connection signal="toggled" from="CheckBox" to="." method="OnIsReady"]
+[connection signal="pressed" from="SetName" to="." method="OnNameChange"]
