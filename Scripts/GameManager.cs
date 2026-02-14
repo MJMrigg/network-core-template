@@ -68,6 +68,8 @@ public partial class GameManager : Node
 			//node.Hide();
 			//Warning, if you spawn two objects on top of each other, as in the position vectors are exactly the same, physics will go NUTS
 			//So if you want objects to spawn close to each other, add a bit of randomness to their coordinates
+			
+			//Also, make sure you synchronize position for whatever object you're adding to the scene, otherwise it'll just spawn at 0,0,0!!
 		}
 		
 		//Start the game
